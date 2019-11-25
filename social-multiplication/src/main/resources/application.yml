@@ -1,0 +1,16 @@
+spring:
+  h2:
+    console:
+      enabled: true # H2 데이터베이스 웹 콘솔 접속
+  jpa:
+    hibernate:
+      ddl-auto: update # 데이터베이스가 없는 경우에만 데이터베이스 생성
+    show-sql: true # 학습 목적(콘솔에 sql 출력)
+  datasource:
+    url: jdbc:h2:file:~/example-springboot;DB_CLOSE_ON_EXIT=FALSE; # 파일로 데이터베이스 생성
+
+## rabbitMQ 설정
+multiplication:
+  exchange: "multiplication_exchange"
+  solved:
+    key: "multiplication.solved"
