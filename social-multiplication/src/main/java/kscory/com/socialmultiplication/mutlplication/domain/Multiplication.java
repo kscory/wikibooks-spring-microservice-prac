@@ -19,7 +19,7 @@ public class Multiplication {
 
     @Id
     @GeneratedValue
-    @Column(name = "MULTIPLICATION'_ID")
+    @Column(name = "MULTIPLICATION_ID")
     private Long id;
 
     private final int factorA;
