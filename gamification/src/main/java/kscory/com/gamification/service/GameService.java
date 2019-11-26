@@ -1,6 +1,7 @@
 package kscory.com.gamification.service;
 
 import kscory.com.gamification.domain.GameStats;
+import kscory.com.gamification.domain.ScoreCard;
 
 /**
  * 게임화 시스템의 주요 로직을 다루는 서비스
@@ -24,4 +25,6 @@ public interface GameService {
      * @return 사용자의 통계 정보
      */
     GameStats retrieveStatsForUser(Long userId);
+
+    ScoreCard getScoreForAttempt(Long attemptId);
 }
