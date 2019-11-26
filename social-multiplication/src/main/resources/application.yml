@@ -8,6 +8,12 @@ spring:
     show-sql: true # 학습 목적(콘솔에 sql 출력)
   datasource:
     url: jdbc:h2:file:~/example-springboot;DB_CLOSE_ON_EXIT=FALSE; # 파일로 데이터베이스 생성
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+
 
 ## rabbitMQ 설정
 multiplication:
