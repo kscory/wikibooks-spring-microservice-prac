@@ -1,6 +1,8 @@
+var SERVER_URL = "http://localhost:8000/api";
+
 function updateMultiplication() {
   $.ajax({
-    url: "http://localhost:8080/multiplications/random"
+    url: SERVER_URL + "/multiplications/random"
   }).then(function (data) {
     // 폼 비우기
     $("#attempt-form").find("input[name='result-attempt']").val("");
@@ -14,16 +16,16 @@ function updateMultiplication() {
 function updateResults(alias) {
   var userId = -1;
   $.ajax({
+    url: SERVER_URL + "/results?alias=" + alias,
     async: false,
-    url: "http://localhost:8080/results?alias=" + alias,
     success: function (data) {
       $('#results-div').show();
       $('#results-body').empty();
       data.forEach(function (row) {
         $('#results-body').append('<tr><td>' + row.id + '</td>' +
-          '<td>' + row.multiplication.factorA + ' x ' + row.multiplication.factorB + '</td>' +
-          '<td>' + row.resultAttempt + '</td>' +
-          '<td>' + (row.correct === true ? 'YES' : 'NO') + '</td></tr>');
+            '<td>' + row.multiplication.factorA + ' x ' + row.multiplication.factorB + '</td>' +
+            '<td>' + row.resultAttempt + '</td>' +
+            '<td>' + (row.correct === true ? 'YES' : 'NO') + '</td></tr>');
       });
       userId = data[0].user.id;
     }
@@ -44,15 +46,15 @@ $(document).ready(function () {
     var a = $('.multiplication-a').text();
     var b = $('.multiplication-b').text();
     var $form = $(this),
-      attempt = $form.find("input[name='result-attempt']").val(),
-      userAlias = $form.find("input[name='user-alias']").val();
+        attempt = $form.find("input[name='result-attempt']").val(),
+        userAlias = $form.find("input[name='user-alias']").val();
 
     // API 에 맞게 데이터를 조합하기
     var data = {user: {alias: userAlias}, multiplication: {factorA: a, factorB: b}, resultAttempt: attempt};
 
     // POST 로 데이터 보내기
     $.ajax({
-      url: 'http://localhost:8080/results',
+      url: SERVER_URL + '/results',
       type: 'POST',
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
@@ -61,10 +63,10 @@ $(document).ready(function () {
       success: function (result) {
         if (result.correct) {
           $('.result-message').empty()
-            .append("<p class='bg-success text-center'>정답입니다! 축하드려요!</p>");
+              .append("<p class='bg-success text-center'>정답입니다! 축하드려요!</p>");
         } else {
           $('.result-message').empty()
-            .append("<p class='bg-danger text-center'>오답입니다! 그래도 포기하지 마세요!</p>");
+              .append("<p class='bg-danger text-center'>오답입니다! 그래도 포기하지 마세요!</p>");
         }
       }
     });

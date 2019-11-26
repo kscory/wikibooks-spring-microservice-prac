@@ -1,18 +1,20 @@
+var SERVER_URL = "http://localhost:8000/api";
+
 function updateLeaderBoard() {
   $.ajax({
-    url: "http://localhost:8081/leaders"
+    url: SERVER_URL + "/leaders"
   }).then(function (data) {
     $('#leaderboard-body').empty();
     data.forEach(function (row) {
       $('#leaderboard-body').append('<tr><td>' + row.userId + '</td>' +
-        '<td>' + row.totalScore + '</td>');
+          '<td>' + row.totalScore + '</td>');
     });
   });
 }
 
 function updateStats(userId) {
   $.ajax({
-    url: "http://localhost:8081/stats?userId=" + userId,
+    url: SERVER_URL + "/stats?userId=" + userId,
     success: function (data) {
       $('#stats-div').show();
       $('#stats-user-id').empty().append(userId);
